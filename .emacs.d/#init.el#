@@ -1,0 +1,54 @@
+;; Load other files from this directory
+(defconst user-init-dir
+  (cond ((boundp 'user-emacs-directory)
+         user-emacs-directory)
+        ((boundp 'user-init-directory)
+         user-init-directory)
+        (t "~/.emacs.d/")))
+(defun load-user-file (file)
+  (interactive "f")
+  "Load a file in current user's configuration directory"
+  (load-file (expand-file-name file user-init-dir)))
+(load-user-file "packages.el")
+
+
+;;Fonts
+(set-face-attribute 'default nil
+                    :font "SauceCodePro Nerd Font 11"
+                    :weight 'medium)
+(set-face-attribute 'variable-pitch nil
+                    :font "Ubuntu Nerd Font 11"
+                    :weight 'medium)
+(set-face-attribute 'fixed-pitch nil
+                    :font "SauceCodePro Nerd Font 11"
+                    :weight 'medium)
+
+;; Theme
+(setq doom-themes-enable-bold t 
+      doom-themes-enable-italic t)
+(load-theme 'doom-one t)
+
+(add-to-list 'default-frame-alist '(font . "SauceCodePro Nerd Font 11"))
+(doom-modeline-mode 1)
+
+
+;; GUI Settings
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+
+;; Which Key
+(which-key-mode)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ispell-dictionary nil)
+ '(package-selected-packages '(which-key evil-collection evil use-package)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
