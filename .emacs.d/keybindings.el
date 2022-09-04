@@ -43,4 +43,7 @@
        "4" '(tab-bar-select-tab 4 :which-key "Select tab 4")
        "5" '(tab-bar-select-tab 5 :which-key "Select tab 5")
        "6" '(tab-bar-select-tab 6 :which-key "Select tab 6")
+
+       ;; Project
+       "p s" '(counsel-projectile-switch-project :which-key "Switch Project")
   )

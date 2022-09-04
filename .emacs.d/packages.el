@@ -67,3 +67,11 @@
              :ensure t)
 (use-package lsp-mode
              :ensure t)
+(use-package helm-projectile
+             :ensure t)
+
+;(unless (package-installed-p 'projectile)
+;  (package-install 'projectile))
+
+;(unless (package-installed-p 'counsel-projectile)
+;  (package-install 'counsel-projectile))

@@ -12,7 +12,7 @@
 
 (load-user-file "packages.el")
 (load-user-file "keybindings.el")
-
+(require 'helm-projectile)
 
 ;;Dashboard
 
@@ -52,6 +52,7 @@
 (tab-bar-mode 1)
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 (setq highlight-indent-guides-method 'character)
+(setq neo-smart-open t)
 
 ;; Which Key
 (which-key-mode)
@@ -60,13 +61,17 @@
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
 
-
 ;; Projectile
-;(projectile-global-mode)
-; (helm-projectile-on)
-;(setq projectile-indexing-method 'alien)
-;(setq projectile-enable-caching t)
-
+(projectile-global-mode)
+(setq projectile-enable-caching t)
+(helm-projectile-on)
+(setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+(setq projectile-project-search-path '("~/Projects"))
+(setq dashboard-items '((recents  . 5)
+                        (bookmarks . 5)
+                        (projects . 10)
+                        (agenda . 5)
+                        (registers . 5)))
 ;; Terminal
 (setq vterm-toggle-fullscreen-p nil)
 (add-to-list 'display-buffer-alist
