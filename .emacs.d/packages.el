@@ -49,10 +49,11 @@
 (use-package doom-themes
              :ensure t)
 (use-package doom-modeline
-             :ensure t)
+             :ensure t
+	    :init (doom-modeline-mode 1))
 ;; Which Key Package
 (use-package which-key
-             :ensure t)
+  :ensure t)
 
 ;;file tree
 (use-package neotree
