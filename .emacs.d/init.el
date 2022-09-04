@@ -50,7 +50,6 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (tab-bar-mode 1)
-;;Indent guides
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 (setq highlight-indent-guides-method 'character)
 
@@ -63,10 +62,10 @@
 
 
 ;; Projectile
-(projectile-global-mode)
+;(projectile-global-mode)
 ; (helm-projectile-on)
-(setq projectile-indexing-method 'alien)
-(setq projectile-enable-caching t)
+;(setq projectile-indexing-method 'alien)
+;(setq projectile-enable-caching t)
 
 ;; Terminal
 (setq vterm-toggle-fullscreen-p nil)
@@ -83,15 +82,3 @@
                 ;;(dedicated . t) ;dedicated is supported in emacs27
                 (reusable-frames . visible)
                (window-height . 0.3)))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ispell-dictionary nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

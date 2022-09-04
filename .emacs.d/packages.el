@@ -63,6 +63,7 @@
         :ensure t)
 (use-package vterm-toggle
            :ensure t)
-
 (use-package highlight-indent-guides
+             :ensure t)
+(use-package lsp-mode
              :ensure t)

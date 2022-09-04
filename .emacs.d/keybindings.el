@@ -1,6 +1,6 @@
 (nvmap :prefix "SPC"
        "SPC" '(counsel-M-x :which-key "M-x")
-       ".." '(find-file :which-key "Find file")
+       ".." '(helm-find-files :which-key "Find files using helm")
 
        ;;Buffers
        "b b" '(ibuffer :which-key "Ibuffer")
@@ -26,14 +26,21 @@
        "w w" '(evil-window-next :which-key "Goto next window")
 
        ;;neotree
-       "o p" '(neotree-toggle :which-key "Open Neotree")
+       "TAB" '(neotree-toggle :which-key "Open Neotree")
 
        ;;terminal
        "o t" '(vterm-toggle :which-key "Toggle Vterm")
 
-       ;;terminal
-       "o t" '(vterm-toggle :which-key "Toggle Vterm")
+       ;; Tabbar
+       "t t" '(tab-new :which-key "New Tab")
+       "t c" '(tab-close :which-key "Close Current Tab")
+       "t n" '(tab-next :which-key "Next Tab")
+       "t p" '(tab-previous :which-key "Previous Tab")
 
-       ;;terminal
-       "o t" '(vterm-toggle :which-key "Toggle Vterm")
-       )
+       "1" '(tab-bar-select-tab 1 :which-key "Select tab 1")
+       "2" '(tab-bar-select-tab 2 :which-key "Select tab 2")
+       "3" '(tab-bar-select-tab 3 :which-key "Select tab 3")
+       "4" '(tab-bar-select-tab 4 :which-key "Select tab 4")
+       "5" '(tab-bar-select-tab 5 :which-key "Select tab 5")
+       "6" '(tab-bar-select-tab 6 :which-key "Select tab 6")
+  )
