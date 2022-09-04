@@ -3,6 +3,7 @@
 ;; Setup package.el to work with MELPA
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
+
 ; (package-refresh-contents)
 (package-initialize)
 
@@ -51,4 +52,17 @@
              :ensure t)
 ;; Which Key Package
 (use-package which-key
+             :ensure t)
+
+;;file tree
+(use-package neotree
+  :ensure t)
+
+;;terminal
+(use-package vterm
+        :ensure t)
+(use-package vterm-toggle
+           :ensure t)
+
+(use-package highlight-indent-guides
              :ensure t)

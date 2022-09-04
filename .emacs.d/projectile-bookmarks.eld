@@ -1,1 +1,1 @@
-nil
+("~/navbar.el/" "~/.emacs.d/elpa/vterm-20220831.835/")

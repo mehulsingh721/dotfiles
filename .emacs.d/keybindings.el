@@ -24,4 +24,16 @@
        "w k" '(evil-window-up :which-key "Window up")
        "w l" '(evil-window-right :which-key "Window right")
        "w w" '(evil-window-next :which-key "Goto next window")
+
+       ;;neotree
+       "o p" '(neotree-toggle :which-key "Open Neotree")
+
+       ;;terminal
+       "o t" '(vterm-toggle :which-key "Toggle Vterm")
+
+       ;;terminal
+       "o t" '(vterm-toggle :which-key "Toggle Vterm")
+
+       ;;terminal
+       "o t" '(vterm-toggle :which-key "Toggle Vterm")
        )
