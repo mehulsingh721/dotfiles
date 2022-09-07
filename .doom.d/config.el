@@ -96,3 +96,6 @@
 
 ;; Projectile
 (setq projectile-project-search-path '("~/Projects"))
+
+;;Commentary
+(evil-commentary-mode)
