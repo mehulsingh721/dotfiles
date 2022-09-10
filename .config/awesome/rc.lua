@@ -14,6 +14,9 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
+local theme_path = string.format("%s/.config/awesome/%s/theme.lua", os.getenv("HOME"), "default")
+beautiful.init(theme_path)
+
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -44,14 +47,14 @@ do
 end
 -- }}}
 
-local themes = {
-    "iron-man", -- 1
-}
+-- local themes = {
+--     "iron-man", -- 1
+-- }
 
--- choose your theme here
-local chosen_theme = themes[1]
-local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
-beautiful.init(theme_path)
+--choose your theme here
+-- local chosen_theme = themes[1]
+-- local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
+-- beautiful.init(theme_path)
 
 terminal = "kitty"
 editor = os.getenv("EDITOR") or "nvim"
@@ -284,8 +287,8 @@ root.keys(globalkeys)
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
-      properties = { border_width = beautiful.border_width,
-                     border_color = beautiful.border_normal,
+      properties = { border_width = 5,
+                     border_color = "blue",
                      focus = awful.client.focus.filter,
                      raise = true,
                      keys = clientkeys,
@@ -328,7 +331,7 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
+      }, properties = { titlebars_enabled = false }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
@@ -397,6 +400,6 @@ client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", {raise = false})
 end)
 
--- client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
--- client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("focus", function(c) c.border_color = "red" end)
+client.connect_signal("unfocus", function(c) c.border_color = "blue" end)
 -- }}}

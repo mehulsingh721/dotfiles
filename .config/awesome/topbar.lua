@@ -14,6 +14,9 @@ local beautiful = require("beautiful")
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
 
+local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), "iron-man")
+beautiful.init(theme_path)
+
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -95,8 +98,7 @@ awful.screen.connect_for_each_screen(function(s)
         --layout = wibox.layout.flex.horizontal,
         style = {
             shape = gears.shape.circle,
-            font = 12,
-            fg_focus = "red",
+            font = 10,
         },
     }
 
@@ -117,10 +119,10 @@ awful.screen.connect_for_each_screen(function(s)
     -- Topbar
     s.mywibox = awful.wibar({
             position = "top",
-            height = 30,
-            border_width = 10,
+            height = beautiful.height_topbar,
+            border_width = beautiful.border_width_topbar,
             screen = s,
-            bg = "transparent",
+            bg = beautiful.bg_topbar,
             stretch = true,
     })
 
