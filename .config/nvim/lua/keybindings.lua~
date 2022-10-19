@@ -1,0 +1,142 @@
+local g = vim.g
+local api = vim.api
+
+-- Map <leader> to space
+g.mapleader = ' '
+g.maplocalleader = ' '
+
+g.ctrlp_map = '<leader>..'
+g.ctrlp_custom_ignore = './node_modules/'
+
+-- Editor mappings --
+--Tabs
+api.nvim_set_keymap(
+    "n",
+    "<leader>1",
+    ":tabn1 <CR>",
+    { noremap = true }
+
+)
+api.nvim_set_keymap(
+    "n",
+    "<leader>2",
+    ":tabn2 <CR>",
+    { noremap = true }
+)
+api.nvim_set_keymap(
+    "n",
+    "<leader>3",
+    ":tabn3 <CR>",
+    { noremap = true }
+)
+api.nvim_set_keymap(
+    "n",
+    "<leader>4",
+    ":tabn4 <CR>",
+    { noremap = true }
+)
+api.nvim_set_keymap(
+    "n",
+    "<leader>5",
+    ":tabn5 <CR>",
+    { noremap = true }
+)
+
+-- Window management
+api.nvim_set_keymap(
+    "n",
+    "<leader>h",
+    ":wincmd h <CR>",
+    { noremap = true }
+)
+api.nvim_set_keymap(
+    "n",
+    "<leader>l",
+    ":wincmd l <CR>",
+    { noremap = true }
+)
+api.nvim_set_keymap(
+    "n",
+    "<leader>k",
+    ":wincmd k <CR>",
+    { noremap = true }
+)
+api.nvim_set_keymap(
+    "n",
+    "<leader>j",
+    ":wincmd j",
+    { noremap = true }
+)
+
+-- plugin mappings
+-- api.nvim_set_keymap(
+--     "n",
+--     "<leader>..",
+--     ":Telescope find_files<CR>",
+--     { noremap = true }
+-- )
+-- require('fzf-lua').files()
+-- or using the `FzfLua` vim command:
+
+api.nvim_set_keymap(
+    "n",
+    "<leader><tab>",
+    ":NERDTreeToggle<CR>",
+    { noremap = true }
+)
+
+local options = { noremap = true }
+vim.keymap.set("i", "jj", "<Esc>", options)
+vim.keymap.set("t", "jj", "<C-_><C-n>", options)
+
+function nvim_create_augroups(definitions)
+    for group_name, definition in pairs(definitions) do
+        api.nvim_command('augroup ' .. group_name)
+        api.nvim_command('autocmd!')
+        for _, def in ipairs(definition) do
+            local command = table.concat(vim.tbl_flatten { 'autocmd', def }, ' ')
+            api.nvim_command(command)
+        end
+        api.nvim_command('augroup END')
+    end
+end
+
+-- Terminal
+local autocmds = {
+    terminal_job = {
+        { "TermOpen", "*", [[tnoremap <buffer> jj <c-\><c-n>]] };
+        { "TermOpen", "*", "startinsert" };
+        { "TermOpen", "*", "setlocal listchars= nonumber norelativenumber" };
+    };
+}
+
+-- Code Fold
+local keymap = vim.keymap
+keymap.amend = require('keymap-amend')
+local map = require('fold-preview').mapping
+
+keymap.amend('n', 'h', map.show_close_preview_open_fold)
+keymap.amend('n', 'l', map.close_preview_open_fold)
+keymap.amend('n', 'zo', map.close_preview)
+keymap.amend('n', 'zO', map.close_preview)
+keymap.amend('n', 'zc', map.close_preview_without_defer)
+keymap.amend('n', 'zR', map.close_preview)
+keymap.amend('n', 'zM', map.close_preview_without_defer)
+nvim_create_augroups(autocmds)
+
+-- Coc Neovim
+vim.api.nvim_set_keymap("n", "<leader>.", "<Plug>(coc-codeaction)", {})
+vim.api.nvim_set_keymap("n", "<leader>l", ":CocCommand eslint.executeAutofix<CR>", {})
+vim.api.nvim_set_keymap("n", "gd", "<Plug>(coc-definition)", { silent = true })
+vim.api.nvim_set_keymap("n", "K", ":call CocActionAsync('doHover')<CR>", { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>rn", "<Plug>(coc-rename)", {})
+vim.api.nvim_set_keymap("n", "<leader>ff", ":CocCommand prettier.formatFile<CR>", { noremap = true })
+vim.api.nvim_set_keymap("i", "<C-Space>", "coc#refresh()", { silent = true, expr = true })
+vim.api.nvim_set_keymap("i", "<TAB>", "pumvisible() ? '<C-n>' : '<TAB>'", { noremap = true, silent = true, expr = true })
+vim.api.nvim_set_keymap("i", "<S-TAB>", "pumvisible() ? '<C-p>' : '<S-TAB>'", { noremap = true, expr = true })
+vim.api.nvim_set_keymap("i", "<CR>", "pumvisible() ? coc#_select_confirm() : '<C-G>u<CR><C-R>=coc#on_enter()<CR>'",
+    { silent = true, expr = true, noremap = true })
+vim.o.hidden = true
+vim.o.backup = false
+vim.o.writebackup = false
+vim.o.updatetime = 300
