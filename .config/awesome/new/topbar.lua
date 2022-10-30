@@ -8,11 +8,23 @@ require("awful.autofocus")
 local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
+local vicious = require("vicious")
 
 -- Notification library
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
+
+local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), "iron-man")
+beautiful.init(theme_path)
+
+-- Table of layouts to cover with awful.layout.inc, order matters.
+awful.layout.layouts = {
+    awful.layout.suit.tile,
+    awful.layout.suit.floating,
+    awful.layout.suit.max,
+    awful.layout.suit.magnifier
+}
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -66,9 +78,30 @@ local function set_wallpaper(s)
     end
 end
 
+cpuWidget = wibox.widget.textbox()
+
+cpuBox = wibox.container.background(
+    cpuWidget,
+    {
+        forced_height = 10,
+        forced_width = 10,
+        color = "#FFFFFF",
+    }
+)
+cpu = wibox.container.margin(
+    cpuBox,
+    10, 10, 5, 2,
+    {
+        color = "transparent",
+        forced_height = 5,
+        forced_width = 5,
+    }
+)
+vicious.register(cpuWidget, vicious.widgets.cpu, "$1", 3)
+
+
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
-
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
@@ -92,14 +125,13 @@ awful.screen.connect_for_each_screen(function(s)
         screen  = s,
         filter  = awful.widget.taglist.filter.all,
         buttons = taglist_buttons,
+        border_color = "red",
         --layout = wibox.layout.flex.horizontal,
         style = {
             shape = gears.shape.circle,
-            font = 12,
-            fg_focus = "red",
+            font = 6,
         },
     }
-
     --Create a tasklist widget
     s.mytasklist = awful.widget.tasklist {
         screen  = s,
@@ -117,10 +149,10 @@ awful.screen.connect_for_each_screen(function(s)
     -- Topbar
     s.mywibox = awful.wibar({
             position = "top",
-            height = 30,
-            border_width = 10,
+            height = beautiful.height_topbar,
+            border_width = beautiful.border_width_topbar,
             screen = s,
-            bg = "transparent",
+            bg = beautiful.bg_topbar,
             stretch = true,
     })
 
@@ -134,16 +166,17 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             spacing = 10,
             mylauncher,
-            s.mytasklist, -- Middle widget
+            -- s.mytasklist, -- Middle widget
             s.mytagbox
+
         },
         s.mytaglist,
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
-            wibox.widget.systray(),
             mytextclock,
+            cpu,
             s.mylayoutbox,
+
         },
     }
 end)
