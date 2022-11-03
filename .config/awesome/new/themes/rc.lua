@@ -56,13 +56,12 @@ local chosen_theme = themes[1]
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
 beautiful.init(theme_path)
 
-terminal = "alacritty"
+terminal = "kitty"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 
 local filemanager       = "nautilus"
 local browser           = "firefox"
-local locker = "i3lock-fancy"
 
 local modkey = "Mod4"
 local altkey = "Mod1"
@@ -86,7 +85,7 @@ globalkeys = gears.table.join(
     --dmenu
     awful.key({ modkey, "Shift" }, "Return",
         function()
-            awful.spawn(string.format("rofi -show run", beautiful.bg_normal, beautiful.bg_focus, beautiful.fg_focus))
+            awful.spawn(string.format("dmenu_run", beautiful.bg_normal, beautiful.bg_focus, beautiful.fg_focus))
         end,
         {descriptio = "show dmenu", group = "hotkeys"}
     ),
@@ -108,16 +107,6 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "Return", function () awful.spawn( terminal) end,
             {description = "terminal", group = "super"}),
 
-    -- Screen Locker
-    awful.key({ modkey,    "Shift"}, "l", function () awful.spawn(locker) end,
-    {description = "terminal", group = "super"}),
-
-    --Screenshot
-    awful.key({ modkey,           }, "Print", function () awful.spawn("gnome-screenshot -a") end,
-    {description = "terminal", group = "super"}),
-
-    awful.key({ modkey,    "Shift"}, "Print", function () awful.spawn("gnome-screenshot") end,
-    {description = "terminal", group = "super"}),
 
     -- Tag browsing with modkey
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -130,7 +119,7 @@ globalkeys = gears.table.join(
         {description = "go back", group = "tag"}
     ),
 
-     -- Switch next/previous workspaces
+     -- Tag browsing alt + tab
     awful.key({ modkey  }, "l",   awful.tag.viewnext,
         {description = "view next", group = "tag"}
     ),
@@ -202,8 +191,14 @@ clientkeys = gears.table.join(
             -- minimized, since minimized clients can't have the focus.
             c.minimized = true
         end ,
-        {description = "(un)maximize", group = "client"}),
+        {description = "minimize", group = "client"}),
     awful.key({ modkey,           }, "m",
+        function (c)
+            c.maximized = not c.maximized
+            c:raise()
+        end ,
+        {description = "(un)maximize", group = "client"}),
+    awful.key({ modkey, "Control" }, "m",
         function (c)
             c.maximized_vertical = not c.maximized_vertical
             c:raise()
@@ -301,7 +296,6 @@ awful.rules.rules = {
           "DTA",  -- Firefox addon DownThemAll.
           "copyq",  -- Includes session name in class.
           "pinentry",
-          "gnome-screenshot"
         },
         class = {
           "Arandr",
@@ -401,7 +395,3 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
-
-awful.spawn.with_shell("nm-applet")
-awful.spawn.with_shell("volumeicon")
-awful.spawn.with_shell("barrier")

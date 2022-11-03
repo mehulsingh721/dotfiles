@@ -17,6 +17,14 @@ api.nvim_set_keymap(
     { noremap = true }
 
 )
+
+api.nvim_set_keymap(
+    "i",
+    "hh",
+    "<C-y>,",
+    { noremap = false }
+)
+
 api.nvim_set_keymap(
     "n",
     "<leader>2",

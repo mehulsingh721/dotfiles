@@ -10,6 +10,7 @@ return require('packer').startup(function(use)
     use "preservim/nerdtree"
     use 'tiagofumo/vim-nerdtree-syntax-highlight'
     use 'ryanoasis/vim-devicons'
+    use 'mattn/emmet-vim'
 
     -- Treesitter - Syntax highlight--
     use { 'nvim-treesitter/nvim-treesitter',
